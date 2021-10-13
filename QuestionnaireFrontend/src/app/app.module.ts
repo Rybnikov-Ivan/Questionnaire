@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import { PanelUsersComponent } from './board-admin/panel-users/panel-users.component';
+import { QuestionnaireDesignerComponent } from './board-admin/questionnaire-designer/questionnaire-designer.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PanelUsersComponent } from './board-admin/panel-users/panel-users.compo
     HomeComponent,
     BoardAdminComponent,
     BoardUserComponent,
-    PanelUsersComponent
+    PanelUsersComponent,
+    QuestionnaireDesignerComponent
   ],
   imports: [
     BrowserModule,
