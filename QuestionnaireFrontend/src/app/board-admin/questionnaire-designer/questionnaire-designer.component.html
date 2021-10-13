@@ -1,1 +1,57 @@
-<p>questionnaire-designer works!</p>
+<div>
+  <div class="form-group">
+    <label>Title</label>
+    <input type="title" class="form-control" placeholder="Enter the title">
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea class="form-control" rows="3" placeholder="Enter the description"></textarea>
+  </div>
+
+  <hr class="solid">
+</div>
+
+<form [formGroup]='questionListControl'>
+  <ui formArrayName="questions">
+    <div class="form-group" *ngFor="let questionControl of getQuestionControls(); let i = index">
+      <h3 class="text-center">{{i+1}} question</h3>
+      <div class="form-group">
+        <label>Question</label>
+        <input type="title" class="form-control" placeholder="Enter the question">
+      </div>
+
+      <form [formGroup]='answerListControl'>
+        <ui formArrayName="answers">
+          <div class="form-group" *ngFor="let answerControl of getAnswerControls(); let j = index">
+            <label class="form-check-label" for="defaultCheck1">
+              <h5>{{j+1}} option</h5>
+              <input class="form-check-input" type="checkbox" value="">
+              <input>
+              <button type="button" class="btn-danger" (click)="removeAnswer(j)">remove</button>
+            </label>
+          </div>
+        </ui>
+        <button type="button" class="btn btn-primary btn-sm" (click)="addAnswer()">Add answer</button>
+      </form>
+
+      <div class="text-center">
+        <button type="button" class="btn btn-outline-danger" (click)="removeQuestion(i)">Remove</button>
+      </div>
+      <hr class="dashed">
+    </div>
+  </ui>
+</form>
+
+<div class="text-center">
+  <button type="button" class="btn btn-primary" (click)="addQuestion()">Add question</button>
+</div>
+
+<div class="text-center">
+  <hr class="solid">
+  <hr class="solid">
+  <button type="button" class="btn btn-success btn-lg btn-block">Save</button>
+</div>
+
+
+

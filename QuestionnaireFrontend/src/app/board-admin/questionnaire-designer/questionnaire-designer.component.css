@@ -1,0 +1,7 @@
+hr.solid {
+  border-top: 2px solid #999;
+}
+
+hr.dashed {
+  border-top: 2px dashed #999;
+}
