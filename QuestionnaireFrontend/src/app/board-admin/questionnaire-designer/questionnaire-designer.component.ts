@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-questionnaire-designer',
@@ -8,21 +8,23 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 })
 export class QuestionnaireDesignerComponent implements OnInit {
 
-  questionListControl!: FormGroup;
-  answerListControl!: FormGroup;
+  questionForm!: FormGroup;
 
   oneSelectedAnswer: boolean = false;
   severalSelectedAnswers: boolean = false;
-  constructor() { }
+
+  constructor( private fb: FormBuilder ) {
+    this._createForm()
+   }
+
+  private _createForm(){
+    this.questionForm = this.fb.group({
+      questions: this.fb.array([]),
+      answers: this.fb.array([])
+    })
+  }
 
   ngOnInit(): void {
-    this.questionListControl = new FormGroup({
-      questions: new FormArray([]),
-    })
-
-    this.answerListControl = new FormGroup({
-      answers: new FormArray([])
-    })
   }
 
   onChange(event: any){
@@ -39,27 +41,27 @@ export class QuestionnaireDesignerComponent implements OnInit {
     }
   }
 
-  getQuestionControls() {
-    return (this.questionListControl.get('questions') as FormArray).controls;
+  get questions() {
+    return (this.questionForm.get('questions') as FormArray);
   }
 
   addQuestion() {
-    (this.questionListControl.controls['questions'] as FormArray).push(new FormControl(''))
+    this.questions.push(this.fb.control(''))
   }
 
   removeQuestionAt(index: number){
-    (this.questionListControl.controls['questions'] as FormArray).removeAt(index);
+    this.questions.removeAt(index);
   }
 
-  getAnswerControls(){
-    return (this.answerListControl.get('answers') as FormArray).controls;
+  get answers(){
+    return (this.questionForm.get('answers') as FormArray);
   }
 
   addAnswer() {
-    (this.answerListControl.controls['answers'] as FormArray).push(new FormControl(''));
+    this.answers.push(this.fb.control(''));
   }
 
   removeAnswerAt(index: number){
-    (this.answerListControl.controls['answers'] as FormArray).removeAt(index);
+    this.answers.removeAt(index);
   }
 }

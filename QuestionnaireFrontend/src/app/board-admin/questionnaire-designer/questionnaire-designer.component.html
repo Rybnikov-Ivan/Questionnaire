@@ -12,9 +12,9 @@
   <hr class="solid">
 </div>
 
-<form [formGroup]='questionListControl'>
+<form [formGroup]='questionForm'>
   <ui formArrayName="questions">
-    <div class="form-group" *ngFor="let questionControl of getQuestionControls(); let i = index">
+    <div class="form-group" *ngFor="let questionControl of questions.controls; let i = index">
       <h3 class="text-center">{{i+1}} question</h3>
       <div class="form-group">
         <label>Question</label>
@@ -32,9 +32,9 @@
         </select>
       </div>
 
-      <form [formGroup]='answerListControl' *ngIf="severalSelectedAnswers">
-        <ui formArrayName="answers">
-          <div class="form-group" *ngFor="let answerControl of getAnswerControls(); let j = index">
+      <form formArrayName="answers"  *ngIf="severalSelectedAnswers">
+
+          <div class="form-group" *ngFor="let answer of answers.controls; let j = index">
             <label class="form-check-label" for="defaultCheck1">
               <h5>{{j+1}} option</h5>
 
@@ -50,13 +50,13 @@
 
             </label>
           </div>
-        </ui>
+
         <button type="button" class="btn btn-primary btn-sm" (click)="addAnswer()">Add answer</button>
       </form>
 
-      <form [formGroup]='answerListControl' *ngIf="oneSelectedAnswer">
-        <ui formArrayName="answers">
-          <div class="form-group" *ngFor="let answerControl of getAnswerControls(); let j = index">
+      <form formArrayName="answers" *ngIf="oneSelectedAnswer">
+
+          <div class="form-group" *ngFor="let answer of answers.controls; let j = index">
             <label class="form-check-label" for="defaultCheck1">
               <h5>{{j+1}} option</h5>
 
@@ -72,7 +72,7 @@
 
             </label>
           </div>
-        </ui>
+
         <button type="button" class="btn btn-primary btn-sm" (click)="addAnswer()">Add answer</button>
       </form>
 
