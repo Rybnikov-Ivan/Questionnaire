@@ -10,16 +10,33 @@ export class QuestionnaireDesignerComponent implements OnInit {
 
   questionListControl!: FormGroup;
   answerListControl!: FormGroup;
+
+  oneSelectedAnswer: boolean = false;
+  severalSelectedAnswers: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
     this.questionListControl = new FormGroup({
-      questions: new FormArray([])
+      questions: new FormArray([]),
     })
 
     this.answerListControl = new FormGroup({
       answers: new FormArray([])
     })
+  }
+
+  onChange(event: any){
+    if(event.target.value == "1"){
+      this.oneSelectedAnswer = true;
+      this.severalSelectedAnswers = false;
+    }
+    else if(event.target.value == "2") {
+      this.severalSelectedAnswers = true;
+      this.oneSelectedAnswer = false;
+    } else {
+      this.oneSelectedAnswer = false;
+      this.severalSelectedAnswers = false;
+    }
   }
 
   getQuestionControls() {
@@ -30,7 +47,7 @@ export class QuestionnaireDesignerComponent implements OnInit {
     (this.questionListControl.controls['questions'] as FormArray).push(new FormControl(''))
   }
 
-  removeQuestion(index: number){
+  removeQuestionAt(index: number){
     (this.questionListControl.controls['questions'] as FormArray).removeAt(index);
   }
 
@@ -42,7 +59,7 @@ export class QuestionnaireDesignerComponent implements OnInit {
     (this.answerListControl.controls['answers'] as FormArray).push(new FormControl(''));
   }
 
-  removeAnswer(index: number){
+  removeAnswerAt(index: number){
     (this.answerListControl.controls['answers'] as FormArray).removeAt(index);
   }
 }

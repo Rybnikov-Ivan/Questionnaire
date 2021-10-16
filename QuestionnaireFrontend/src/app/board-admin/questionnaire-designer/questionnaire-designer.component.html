@@ -21,14 +21,55 @@
         <input type="title" class="form-control" placeholder="Enter the question">
       </div>
 
-      <form [formGroup]='answerListControl'>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01" style="background-color: #f16785;">Select the type of responses</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01" (change)="onChange($event)">
+          <option selected>Select...</option>
+          <option value="1">Choosing one answer option</option>
+          <option value="2">Choosing multiple answer options</option>
+        </select>
+      </div>
+
+      <form [formGroup]='answerListControl' *ngIf="severalSelectedAnswers">
         <ui formArrayName="answers">
           <div class="form-group" *ngFor="let answerControl of getAnswerControls(); let j = index">
             <label class="form-check-label" for="defaultCheck1">
               <h5>{{j+1}} option</h5>
-              <input class="form-check-input" type="checkbox" value="">
-              <input>
-              <button type="button" class="btn-danger" (click)="removeAnswer(j)">remove</button>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <input type="checkbox" aria-label="Checkbox for following text input">
+                  </div>
+                </div>
+                <input type="text" class="form-control" aria-label="Text input with checkbox">
+                <button type="button" class=" btn btn-danger ml-1" (click)="removeAnswerAt(j)">remove</button>
+              </div>
+
+            </label>
+          </div>
+        </ui>
+        <button type="button" class="btn btn-primary btn-sm" (click)="addAnswer()">Add answer</button>
+      </form>
+
+      <form [formGroup]='answerListControl' *ngIf="oneSelectedAnswer">
+        <ui formArrayName="answers">
+          <div class="form-group" *ngFor="let answerControl of getAnswerControls(); let j = index">
+            <label class="form-check-label" for="defaultCheck1">
+              <h5>{{j+1}} option</h5>
+
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                  <input type="radio" aria-label="Radio button for following text input">
+                  </div>
+                </div>
+                <input type="text" class="form-control" aria-label="Text input with radio button">
+                <button type="button" class="btn btn-danger ml-1" (click)="removeAnswerAt(j)">remove</button>
+              </div>
+
             </label>
           </div>
         </ui>
@@ -36,7 +77,7 @@
       </form>
 
       <div class="text-center">
-        <button type="button" class="btn btn-outline-danger" (click)="removeQuestion(i)">Remove</button>
+        <button type="button" class="btn btn-outline-danger" (click)="removeQuestionAt(i)">Remove</button>
       </div>
       <hr class="dashed">
     </div>
