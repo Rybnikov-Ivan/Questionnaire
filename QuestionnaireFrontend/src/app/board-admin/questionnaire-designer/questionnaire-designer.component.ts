@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, NgForm } from '@angular/forms';
+import { Questionnaire } from 'src/app/models/questionnaire';
+import { QuestionnaireService } from 'src/app/service/questionnaire.service';
 
 @Component({
   selector: 'app-questionnaire-designer',
@@ -13,7 +15,7 @@ export class QuestionnaireDesignerComponent implements OnInit {
   oneSelectedAnswer: boolean = false;
   severalSelectedAnswers: boolean = false;
 
-  constructor( private fb: FormBuilder ) {
+  constructor( private fb: FormBuilder, private questionnaireService: QuestionnaireService ) {
     this._createForm()
    }
 
@@ -63,5 +65,11 @@ export class QuestionnaireDesignerComponent implements OnInit {
 
   removeAnswerAt(index: number){
     this.answers.removeAt(index);
+  }
+
+  save(form: FormGroup): void {
+    this.questionnaireService.saveQuestionnaire(form.value).subscribe(
+      (response: Questionnaire) => {}
+    )
   }
 }

@@ -1,11 +1,11 @@
-export interface questionnaire {
+export interface Questionnaire {
   id: number,
   name: string,
   description: string,
-  questions: Array<question>
+  questions: Array<Question>
 }
 
-export interface question {
+export interface Question {
   id: number,
   label: string,
   answer: string
