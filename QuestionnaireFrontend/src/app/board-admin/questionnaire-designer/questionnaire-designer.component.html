@@ -1,100 +1,58 @@
-
-
-<form [formGroup]='questionForm'>
+<form [formGroup]="questionForm" class="question-form">
   <div>
     <div class="form-group">
       <label>Title</label>
-      <input type="title" class="form-control" placeholder="Enter the title">
+      <input type="title" class="form-control" placeholder="Enter the title" formControlName="title">
     </div>
-
     <div class="form-group">
       <label for="description">Description</label>
-      <textarea class="form-control" rows="3" placeholder="Enter the description"></textarea>
+      <textarea class="form-control" rows="3" placeholder="Enter the description" formControlName="description"></textarea>
+      <hr class="solid">
     </div>
-
-    <hr class="solid">
-  </div>
-
-  <ui formArrayName="questions">
-    <div class="form-group" *ngFor="let questionControl of questions.controls; let i = index">
-      <h3 class="text-center">{{i+1}} question</h3>
-      <div class="form-group">
-        <label>Question</label>
-        <input type="title" class="form-control" placeholder="Enter the question">
-      </div>
-
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01" style="background-color: #f16785;">Select the type of responses</label>
+    <div formArrayName="questions" class="questions">
+      <!-- Questions Form Array ----------------------------------->
+      <div *ngFor="let question of questions?.controls; let i=index" [formGroupName]="i">
+        <h3 class="text-center">{{i+1}} question</h3>
+        <div class="form-group">
+          <label>Question</label>
+          <input type="title" class="form-control" placeholder="Enter the question" formControlName="question">
         </div>
-        <select class="custom-select" id="inputGroupSelect01" (change)="onChange($event)">
-          <option selected>Select...</option>
-          <option value="1">Choosing one answer option</option>
-          <option value="2">Choosing multiple answer options</option>
-        </select>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01" style="background-color: #f16785;">Select the type of answers:</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelect01" formControlName="typeAnswers">
+            <option selected>Choosing one answer option</option>
+            <option value="1">Choosing multiple answer options</option>
+          </select>
+        </div>
+
+        <!-- Answers Form Array ----------------------------------->
+        <div class="answers" formArrayName="answers">
+          <div class="form-group" *ngFor="let answer of getAnswerControls(i);let j=index" [formGroupName]="j">
+            <div >
+              <h5>{{j+1}} option</h5>
+              <input formControlName="answer">
+              <button type="button" class=" btn btn-danger ml-1" (click)="removeAnswerAt(i,j)">remove</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary btn-sm" (click)="addAnswer(i)">Add answer</button>
+        </div>
+        <!-- Answers Form Array End-------------------------------->
+        <div class="text-center">
+          <button type="button" class="btn btn-outline-danger" (click)="removeQuestionAt(i)">Delete</button>
+        </div>
+        <hr class="dashed">
       </div>
-
-      <form formArrayName="answers"  *ngIf="severalSelectedAnswers">
-
-          <div class="form-group" *ngFor="let answer of answers.controls; let j = index">
-            <label class="form-check-label" for="defaultCheck1">
-              <h5>{{j+1}} option</h5>
-
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <input type="checkbox" aria-label="Checkbox for following text input">
-                  </div>
-                </div>
-                <input type="text" class="form-control" aria-label="Text input with checkbox">
-                <button type="button" class=" btn btn-danger ml-1" (click)="removeAnswerAt(j)">remove</button>
-              </div>
-
-            </label>
-          </div>
-
-        <button type="button" class="btn btn-primary btn-sm" (click)="addAnswer()">Add answer</button>
-      </form>
-
-      <form formArrayName="answers" *ngIf="oneSelectedAnswer">
-
-          <div class="form-group" *ngFor="let answer of answers.controls; let j = index">
-            <label class="form-check-label" for="defaultCheck1">
-              <h5>{{j+1}} option</h5>
-
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                  <input type="radio" aria-label="Radio button for following text input">
-                  </div>
-                </div>
-                <input type="text" class="form-control" aria-label="Text input with radio button">
-                <button type="button" class="btn btn-danger ml-1" (click)="removeAnswerAt(j)">remove</button>
-              </div>
-
-            </label>
-          </div>
-
-        <button type="button" class="btn btn-primary btn-sm" (click)="addAnswer()">Add answer</button>
-      </form>
-
+      <!-- Questions Form Array End -------------------------------->
       <div class="text-center">
-        <button type="button" class="btn btn-outline-danger" (click)="removeQuestionAt(i)">Remove</button>
+        <button type="button" class="btn btn-primary" (click)="addQuestion()">Add Question</button>
       </div>
-      <hr class="dashed">
     </div>
-  </ui>
+    <div class="text-center">
+      <hr class="solid">
+      <hr class="solid">
+      <button type="button" class="btn btn-success btn-lg btn-block" (click)="createQuestionnaire(questionForm)">Save</button>
+    </div>
+  </div>
 </form>
-
-<div class="text-center">
-  <button type="button" class="btn btn-primary" (click)="addQuestion()">Add question</button>
-</div>
-
-<div class="text-center">
-  <hr class="solid">
-  <hr class="solid">
-  <button type="button" class="btn btn-success btn-lg btn-block" (click)="save(questionForm)">Save</button>
-</div>
-
-
-
