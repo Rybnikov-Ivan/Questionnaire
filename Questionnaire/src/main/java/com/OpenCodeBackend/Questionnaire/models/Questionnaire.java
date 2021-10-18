@@ -28,7 +28,7 @@ public class Questionnaire {
     @Size(max = 200)
     private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinTable(name = "questionnaire_question",
                 joinColumns = @JoinColumn(name = "questionnaire_id"),
                 inverseJoinColumns = @JoinColumn(name = "question_id"))
@@ -36,9 +36,9 @@ public class Questionnaire {
 
     public Questionnaire(){}
 
-    public Questionnaire(Long id, String title, String description) {
-        this.id = id;
+    public Questionnaire(String title, String description, List<Question> questions) {
         this.title = title;
         this.description = description;
+        this.questions = questions;
     }
 }

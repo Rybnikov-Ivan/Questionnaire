@@ -7,6 +7,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,19 +24,18 @@ public class Question {
     @Size(max = 30)
     private String question;
 
-    @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private EAnswer type;
+    private String typeAnswer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "answer_id")
-    private Answer answer;
+    private List<Answer> answers = new ArrayList<>();
 
     public Question(){}
 
-    public Question(Long id, String question, EAnswer type) {
+    public Question(Long id, String question, String typeAnswer) {
         this.id = id;
         this.question = question;
-        this.type = type;
+        this.typeAnswer = typeAnswer;
     }
 }
