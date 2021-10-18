@@ -1,4 +1,4 @@
-<form [formGroup]="questionForm" class="question-form">
+<form [formGroup]="questionForm" class="question-form" (ngSubmit)="onSubmit()">
   <div>
     <div class="form-group">
       <label>Title</label>
@@ -10,7 +10,7 @@
       <hr class="solid">
     </div>
     <div formArrayName="questions" class="questions">
-      <!-- Questions Form Array ----------------------------------->
+
       <div *ngFor="let question of questions?.controls; let i=index" [formGroupName]="i">
         <h3 class="text-center">{{i+1}} question</h3>
         <div class="form-group">
@@ -21,30 +21,29 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01" style="background-color: #f16785;">Select the type of answers:</label>
           </div>
-          <select class="custom-select" id="inputGroupSelect01" formControlName="typeAnswers">
-            <option selected>Choosing one answer option</option>
-            <option value="1">Choosing multiple answer options</option>
+          <select class="custom-select" id="inputGroupSelect01" formControlName="typeAnswer">
+            <option value="1">Choosing one answer option</option>
+            <option value="2">Choosing multiple answer options</option>
           </select>
         </div>
 
-        <!-- Answers Form Array ----------------------------------->
         <div class="answers" formArrayName="answers">
           <div class="form-group" *ngFor="let answer of getAnswerControls(i);let j=index" [formGroupName]="j">
             <div >
               <h5>{{j+1}} option</h5>
-              <input formControlName="answer">
+              <input formControlName="option" required maxlength="20">
               <button type="button" class=" btn btn-danger ml-1" (click)="removeAnswerAt(i,j)">remove</button>
             </div>
           </div>
           <button type="button" class="btn btn-primary btn-sm" (click)="addAnswer(i)">Add answer</button>
         </div>
-        <!-- Answers Form Array End-------------------------------->
+
         <div class="text-center">
           <button type="button" class="btn btn-outline-danger" (click)="removeQuestionAt(i)">Delete</button>
         </div>
         <hr class="dashed">
       </div>
-      <!-- Questions Form Array End -------------------------------->
+
       <div class="text-center">
         <button type="button" class="btn btn-primary" (click)="addQuestion()">Add Question</button>
       </div>
@@ -52,7 +51,9 @@
     <div class="text-center">
       <hr class="solid">
       <hr class="solid">
-      <button type="button" class="btn btn-success btn-lg btn-block" (click)="createQuestionnaire(questionForm)">Save</button>
+      <div class="form-group">
+        <button class="btn btn-success btn-lg btn-block">Save</button>
+      </div>
     </div>
   </div>
 </form>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Questionnaire } from 'src/app/models/questionnaire';
 import { QuestionnaireService } from 'src/app/service/questionnaire.service';
 
@@ -24,7 +24,7 @@ export class QuestionnaireDesignerComponent implements OnInit {
    */
   private initForm(){
     this.questionForm = this.fb.group({
-      title: [""],
+      title: ["", Validators.required],
       description: [""],
       questions: this.fb.array([this.getQuestionItem()])
     })
@@ -35,8 +35,8 @@ export class QuestionnaireDesignerComponent implements OnInit {
    */
   private getQuestionItem(){
     return this.fb.group({
-      question: [""],
-      typeAnswers: [""],
+      question: ["", Validators.required],
+      typeAnswer: ["", Validators.required],
       answers: this.fb.array([this.getAnswerItem()])
     })
   }
@@ -46,7 +46,7 @@ export class QuestionnaireDesignerComponent implements OnInit {
    */
   private getAnswerItem(){
     return this.fb.group({
-      answer: [""]
+      option: ["", Validators.required]
     });
   }
 
@@ -107,9 +107,9 @@ export class QuestionnaireDesignerComponent implements OnInit {
     this.getAnswersFormArray(questionIndex).removeAt(answerIndex);
   }
 
-  createQuestionnaire(form: FormGroup): void {
-    this.questionnaireService.saveQuestionnaire(form.value).subscribe(
-      (response: Questionnaire) => {}
-    )
+  onSubmit(): void {
+    this.questionnaireService.saveQuestionnaire(this.questionForm).subscribe(
+      data => {}
+    );
   }
 }

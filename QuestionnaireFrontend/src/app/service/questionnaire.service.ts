@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Questionnaire } from '../models/questionnaire';
 
@@ -17,9 +17,9 @@ export class QuestionnaireService {
 
   constructor(private http: HttpClient) { }
 
-  saveQuestionnaire(questionnaire: Questionnaire): Observable<Questionnaire> {
+  saveQuestionnaire(form: FormGroup): Observable<Questionnaire> {
     return this.http.post<Questionnaire>(URL+'designer',
-    questionnaire,
+    form.value,
     httpOptions);
   }
 }

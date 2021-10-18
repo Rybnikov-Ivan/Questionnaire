@@ -5,3 +5,7 @@ hr.solid {
 hr.dashed {
   border-top: 2px dashed #999;
 }
+
+input.ng-touched.ng-invalid{
+  border-color: red;
+ }
