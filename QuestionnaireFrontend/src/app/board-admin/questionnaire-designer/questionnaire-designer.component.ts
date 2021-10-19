@@ -10,6 +10,7 @@ import { QuestionnaireService } from 'src/app/service/questionnaire.service';
 })
 export class QuestionnaireDesignerComponent implements OnInit {
   questionForm!: FormGroup;
+  submitted = false;
 
   constructor( private fb: FormBuilder, private questionnaireService: QuestionnaireService )
   {
@@ -24,8 +25,8 @@ export class QuestionnaireDesignerComponent implements OnInit {
    */
   private initForm(){
     this.questionForm = this.fb.group({
-      title: ["", Validators.required],
-      description: [""],
+      title: ["", [Validators.required, Validators.maxLength(30)]],
+      description: ["", Validators.maxLength(200)],
       questions: this.fb.array([this.getQuestionItem()])
     })
   }
@@ -35,7 +36,7 @@ export class QuestionnaireDesignerComponent implements OnInit {
    */
   private getQuestionItem(){
     return this.fb.group({
-      question: ["", Validators.required],
+      question: ["", [Validators.required, Validators.maxLength(30)]],
       typeAnswer: ["", Validators.required],
       answers: this.fb.array([this.getAnswerItem()])
     })
@@ -56,6 +57,8 @@ export class QuestionnaireDesignerComponent implements OnInit {
   get questions() {
     return (this.questionForm.get('questions') as FormArray);
   }
+
+  get f() { return this.questionForm.controls; }
 
   /**
    * Get answers of a particular index as FormArray
@@ -108,6 +111,7 @@ export class QuestionnaireDesignerComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.submitted = true;
     this.questionnaireService.saveQuestionnaire(this.questionForm).subscribe(
       data => {}
     );
