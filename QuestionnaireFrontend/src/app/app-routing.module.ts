@@ -9,6 +9,7 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { PanelUsersComponent } from './board-admin/panel-users/panel-users.component';
 import { QuestionnaireDesignerComponent } from './board-admin/questionnaire-designer/questionnaire-designer.component';
+import { PanelQuestionnaireComponent } from './board-admin/panel-questionnaire/panel-questionnaire.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'designer',
         component: QuestionnaireDesignerComponent
+      },
+      {
+        path: 'questionnaires',
+        component: PanelQuestionnaireComponent
       }
     ]},
 

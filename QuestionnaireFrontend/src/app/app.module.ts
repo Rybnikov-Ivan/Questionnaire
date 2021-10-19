@@ -15,6 +15,7 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import { PanelUsersComponent } from './board-admin/panel-users/panel-users.component';
 import { QuestionnaireDesignerComponent } from './board-admin/questionnaire-designer/questionnaire-designer.component';
+import { PanelQuestionnaireComponent } from './board-admin/panel-questionnaire/panel-questionnaire.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { QuestionnaireDesignerComponent } from './board-admin/questionnaire-desi
     BoardAdminComponent,
     BoardUserComponent,
     PanelUsersComponent,
-    QuestionnaireDesignerComponent
+    QuestionnaireDesignerComponent,
+    PanelQuestionnaireComponent
   ],
   imports: [
     BrowserModule,
