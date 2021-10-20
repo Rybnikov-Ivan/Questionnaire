@@ -1,1 +1,46 @@
-<p>panel-questionnaire works!</p>
+<table class="table table-primary">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let questionnaire of questionnaires; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{questionnaire.title}}</td>
+      <td colspan="4">
+        <table class="table mb-0 table-danger">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Question</th>
+              <th scope="col">Type Answer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let question of questionnaire.questions; index as j">
+              <th scope="row">{{ j + 1 }}</th>
+              <th scope="col">{{ question.question }}</th>
+              <th scope="col">{{ question.typeAnswer }}</th>
+              <table class="table-dark" style="width: 100%;">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Options</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let answer of questionnaire.questions[j].answers; index as k">
+                    <th scope="row">{{ k+1 }}</th>
+                    <th scope="col">{{ answer.option }}</th>
+                  </tr>
+                </tbody>
+              </table>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>

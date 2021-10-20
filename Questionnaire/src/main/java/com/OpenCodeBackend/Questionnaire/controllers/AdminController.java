@@ -30,6 +30,12 @@ public class AdminController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @GetMapping("/questionnaires")
+    public ResponseEntity<List<Questionnaire>> getAllQuestionnaires(){
+        List<Questionnaire> questionnaires = questionnaireRepository.findAll();
+        return new ResponseEntity<>(questionnaires, HttpStatus.OK);
+    }
+
     @PostMapping("/designer")
     public ResponseEntity<?> createQuestionnaire(@Valid @RequestBody QuestionnaireRequest questionnaireRequest){
 

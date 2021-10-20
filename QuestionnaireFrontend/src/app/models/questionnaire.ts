@@ -1,12 +1,17 @@
 export interface Questionnaire {
   id: number,
-  name: string,
+  title: string,
   description: string,
   questions: Array<Question>
 }
 
 export interface Question {
   id: number,
-  label: string,
-  answer: string
+  question: string,
+  typeAnswer: String,
+  answers: Array<Answer>
+}
+
+export interface Answer {
+  option: String
 }

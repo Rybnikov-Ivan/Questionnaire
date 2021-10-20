@@ -22,4 +22,8 @@ export class QuestionnaireService {
     form.value,
     httpOptions);
   }
+
+  getAllQuestionnaire(): Observable<any> {
+    return this.http.get(URL+'questionnaires');
+  }
 }
