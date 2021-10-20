@@ -16,6 +16,9 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { PanelUsersComponent } from './board-admin/panel-users/panel-users.component';
 import { QuestionnaireDesignerComponent } from './board-admin/questionnaire-designer/questionnaire-designer.component';
 import { PanelQuestionnaireComponent } from './board-admin/panel-questionnaire/panel-questionnaire.component';
+import { QuestionnairesForUserComponent } from './board-user/questionnaires-for-user/questionnaires-for-user.component';
+import { QuestionComponent } from './board-user/questionnaires-for-user/components/question/question.component';
+import { TitleComponent } from './board-user/questionnaires-for-user/components/title/title.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { PanelQuestionnaireComponent } from './board-admin/panel-questionnaire/p
     BoardUserComponent,
     PanelUsersComponent,
     QuestionnaireDesignerComponent,
-    PanelQuestionnaireComponent
+    PanelQuestionnaireComponent,
+    QuestionnairesForUserComponent,
+    QuestionComponent,
+    TitleComponent,
   ],
   imports: [
     BrowserModule,

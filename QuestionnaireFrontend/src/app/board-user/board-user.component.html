@@ -1,5 +1,14 @@
 <div class="container">
   <header class="jumbotron">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/user/questionnaires" routerLinkActive="active">Complete the questionnaire</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active">my questionnaires</a>
+      </li>
+    </ul>
     <p>{{ content }}</p>
+    <router-outlet></router-outlet>
   </header>
 </div>
