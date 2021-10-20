@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 const API_URL = 'http://localhost:8080/api/test/';
-const URL = 'http://localhost:8080/admin/';
+const URL = 'http://localhost:8080';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,10 @@ export class UserService {
   }
 
   getAllUsers(): Observable<any> {
-    return this.http.get(URL + 'users');
+    return this.http.get(URL + '/admin/users');
+  }
+
+  getAllQuestionnaire(): Observable<any> {
+    return this.http.get(URL + '/user/questionnaires');
   }
 }
