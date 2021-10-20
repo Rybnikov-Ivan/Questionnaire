@@ -34,7 +34,7 @@ import { TitleComponent } from './board-user/questionnaires-for-user/components/
     PanelQuestionnaireComponent,
     QuestionnairesForUserComponent,
     QuestionComponent,
-    TitleComponent,
+    TitleComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Questionnaire } from 'src/app/models/questionnaire';
 import { UserService } from 'src/app/service/user.service';
 
+
 @Component({
   selector: 'app-questionnaires-for-user',
   templateUrl: './questionnaires-for-user.component.html',
@@ -10,6 +11,8 @@ import { UserService } from 'src/app/service/user.service';
 export class QuestionnairesForUserComponent implements OnInit {
   public questionnaires!: Questionnaire[];
   public selectedQuestionnaire!: Questionnaire[];
+
+  startQuestionnaire: boolean = false;
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
@@ -24,7 +27,7 @@ export class QuestionnairesForUserComponent implements OnInit {
     )
   }
 
-  questionnaireSelected(e: any){
+  start(e: any){
     this.selectedQuestionnaire = e;
   }
 }
