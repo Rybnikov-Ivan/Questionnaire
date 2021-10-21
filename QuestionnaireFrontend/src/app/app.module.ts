@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,8 +18,6 @@ import { PanelUsersComponent } from './board-admin/panel-users/panel-users.compo
 import { QuestionnaireDesignerComponent } from './board-admin/questionnaire-designer/questionnaire-designer.component';
 import { PanelQuestionnaireComponent } from './board-admin/panel-questionnaire/panel-questionnaire.component';
 import { QuestionnairesForUserComponent } from './board-user/questionnaires-for-user/questionnaires-for-user.component';
-import { QuestionComponent } from './board-user/questionnaires-for-user/components/question/question.component';
-import { TitleComponent } from './board-user/questionnaires-for-user/components/title/title.component';
 
 @NgModule({
   declarations: [
@@ -32,16 +31,15 @@ import { TitleComponent } from './board-user/questionnaires-for-user/components/
     PanelUsersComponent,
     QuestionnaireDesignerComponent,
     PanelQuestionnaireComponent,
-    QuestionnairesForUserComponent,
-    QuestionComponent,
-    TitleComponent
+    QuestionnairesForUserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

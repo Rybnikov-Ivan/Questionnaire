@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Questionnaire } from 'src/app/models/questionnaire';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Answer, Question, Questionnaire } from 'src/app/models/questionnaire';
 import { UserService } from 'src/app/service/user.service';
-
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-questionnaires-for-user',
@@ -9,11 +9,21 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./questionnaires-for-user.component.css']
 })
 export class QuestionnairesForUserComponent implements OnInit {
+  @ViewChild('content') content: any;
+  @Output() result : EventEmitter<string> = new EventEmitter();
   public questionnaires!: Questionnaire[];
-  public selectedQuestionnaire!: Questionnaire[];
+  public selectedQuestionnaire!: Questionnaire;
 
-  startQuestionnaire: boolean = false;
-  constructor(private userService: UserService) { }
+  pager = {
+    index: 0,
+    size: 1,
+    count: 0
+  };
+
+  constructor(private userService: UserService, private modalService : NgbModal, config: NgbModalConfig) {
+    config.centered = true;
+    config.backdrop = 'static';
+   }
 
   ngOnInit(): void {
     this.updateTable();
@@ -29,5 +39,27 @@ export class QuestionnairesForUserComponent implements OnInit {
 
   start(e: any){
     this.selectedQuestionnaire = e;
+    this.pager.count = this.selectedQuestionnaire.questions.length;
+    this.modalService.open(this.content);
+  }
+
+  get filteredQuestions() {
+    return (this.selectedQuestionnaire.questions) ?
+      this.selectedQuestionnaire.questions.slice(this.pager.index, this.pager.index + this.pager.size) : [];
+  }
+
+  onSelect(question: Question, option: Answer) {
+
+  }
+
+  goTo(index: number) {
+    if (index >= 0 && index < this.pager.count) {
+      this.pager.index = index;
+    }
+  }
+
+  save(){
+    let answers = [];
+
   }
 }
